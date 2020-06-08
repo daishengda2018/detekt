@@ -440,6 +440,9 @@ potential-bugs:
     active: true
   ExplicitGarbageCollectionCall:
     active: true
+  ExpressionFunctionReturnsUnit:
+    active: false
+    allowExplicitReturnType: false
   HasPlatformType:
     active: false
   IgnoredReturnValue:

@@ -132,6 +132,39 @@ Runtime.getRuntime().gc()
 System.runFinalization()
 ```
 
+### ExpressionFunctionReturnsUnit
+
+Functions using expression statements have an implicit return type.
+Changing the type of the expression accidentally, changes the functions return type.
+This may lead to backwards incompatibility.
+Use a block statement to make clear this function will never return a value.
+
+**Severity**: Defect
+
+**Debt**: 5min
+
+#### Configuration options:
+
+* ``allowExplicitReturnType`` (default: ``false``)
+
+   if functions with explicit 'Unit' return type should be allowed
+
+
+<noncompliant>
+fun errorProneUnit() = println("Hello Unit")
+fun errorProneUnitWithParam(param: String) = param.run { println(this) }
+fun String.errorProneUnitWithReceiver() = run { println(this) }
+</noncompliant>
+
+<compliant>
+fun blockStatementUnit() {
+    // code
+}
+
+// if configured
+fun safeUnitReturn(): Unit = println("Hello Unit")
+</compliant>
+
 ### HasPlatformType
 
 Platform types must be declared explicitly in public APIs to prevent unexpected errors.
